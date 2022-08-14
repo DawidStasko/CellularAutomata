@@ -7,6 +7,58 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" BorderThickness="2">
+            <ItemsControl ItemsSource="{Binding Cells}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle Stroke="Black" Width="{Binding Size}" Height="{Binding Size}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Canvas.Left" Value="{Binding Position.X}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding Position.Y}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </Border>
+        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
+            <StackPanel >
+                <Grid Margin="10, 5, 10, 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0">Width</Label>
+                    <TextBox Grid.Column="1" Name="WidthInput" />
+                </Grid>
+                <Grid Margin="10, 5, 10, 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0">Height</Label>
+                    <TextBox Grid.Column="1" Name="HeightInput" />
+                </Grid>
+                <Grid Margin="10, 5, 10, 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0">Cell Size</Label>
+                    <TextBox Grid.Column="1" Name="CellSizeInput"/>
+                </Grid>
+                <Button Grid.ColumnSpan="2"  Click="DrawBoardCommand">Draw Board</Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
