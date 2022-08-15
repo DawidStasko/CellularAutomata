@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:WPFUserInterface"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:BoolToColorConverter x:Key="BoolToColorConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -20,7 +23,8 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Rectangle Stroke="Black" Width="{Binding Size}" Height="{Binding Size}"/>
+                        <Rectangle Stroke="Black" Width="{Binding Size}" Height="{Binding Size}" 
+                                   Fill="{Binding State, Converter={StaticResource BoolToColorConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemContainerStyle>

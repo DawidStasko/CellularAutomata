@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -79,14 +80,31 @@ namespace WPFUserInterface
 
     public class Cell:INotifyPropertyChanged
     {
+        private bool _state; 
+
+        #region Properties
+
         public int Size { get; }
 
         public Point Position { get; }
 
+        public bool State
+        {
+            get => _state;
+            set
+            {
+                _state = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+        
         public Cell(Point position, int size)
         {
             Position = position;
             Size = size;
+            State = (new Random().Next() % 2) == 0;
         }
         
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -95,6 +113,36 @@ namespace WPFUserInterface
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public class BoolToColorConverter:IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return Brushes.White;
+            if (value is bool val)
+            {
+                return val ? Brushes.ForestGreen : Brushes.White;
+            }
+
+            return Brushes.White;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return false;
+            if (value is SolidColorBrush brush)
+            {
+                if (brush == Brushes.Black)
+                    return false;
+                else
+                    return true;
+            }
+
+            return false;
         }
     }
 }

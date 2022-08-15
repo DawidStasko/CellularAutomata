@@ -19,3 +19,4 @@ D:\OneDrive\A-B-C\Coding\CellularAutomata\CellularAutomata\WPFUserInterface\obj\
 D:\OneDrive\A-B-C\Coding\CellularAutomata\CellularAutomata\WPFUserInterface\obj\Debug\net6.0-windows\WPFUserInterface.pdb
 D:\OneDrive\A-B-C\Coding\CellularAutomata\CellularAutomata\WPFUserInterface\obj\Debug\net6.0-windows\WPFUserInterface.genruntimeconfig.cache
 D:\OneDrive\A-B-C\Coding\CellularAutomata\CellularAutomata\WPFUserInterface\obj\Debug\net6.0-windows\ref\WPFUserInterface.dll
+D:\OneDrive\A-B-C\Coding\CellularAutomata\CellularAutomata\WPFUserInterface\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
