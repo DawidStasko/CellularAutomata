@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Xaml.Behaviors.Core;
 using WPFUserInterface.Annotations;
+using WPFUserInterface.Domain;
 
 namespace WPFUserInterface
 {
@@ -26,9 +27,9 @@ namespace WPFUserInterface
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private ObservableCollection<Cell> _cells;
+        private ObservableCollection<SimpleCell> _cells;
 
-        public ObservableCollection<Cell> Cells
+        public ObservableCollection<SimpleCell> Cells
         {
             get => _cells;
             set
@@ -44,7 +45,7 @@ namespace WPFUserInterface
             WidthInput.Text = "10";
             HeightInput.Text = "10";
             CellSizeInput.Text = "15";
-            Cells = new ObservableCollection<Cell>();
+            Cells = new ObservableCollection<SimpleCell>();
             DataContext = this;
         }
 
@@ -78,75 +79,5 @@ namespace WPFUserInterface
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
-    public class Cell:INotifyPropertyChanged
-    {
-        private bool _state; 
-
-        #region Properties
-
-        public int Size { get; }
-
-        public Point Position { get; }
-
-        public bool State
-        {
-            get => _state;
-            set
-            {
-                _state = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ICommand ChangeStateCommand { get; }
-
-        #endregion
-        
-        public Cell(Point position, int size)
-        {
-            Position = position;
-            Size = size;
-            State = (new Random().Next() % 2) == 0;
-            ChangeStateCommand = new ActionCommand(() => { State = !State; });
-        }
-        
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    public class BoolToColorConverter:IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return Brushes.White;
-            if (value is bool val)
-            {
-                return val ? Brushes.ForestGreen : Brushes.White;
-            }
-
-            return Brushes.White;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return false;
-            if (value is SolidColorBrush brush)
-            {
-                if (brush == Brushes.Black)
-                    return false;
-                else
-                    return true;
-            }
-
-            return false;
-        }
-    }
 }
+
