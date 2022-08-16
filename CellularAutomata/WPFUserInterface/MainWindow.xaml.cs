@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Xaml.Behaviors.Core;
 using WPFUserInterface.Annotations;
 
 namespace WPFUserInterface
@@ -98,6 +99,8 @@ namespace WPFUserInterface
             }
         }
 
+        public ICommand ChangeStateCommand { get; }
+
         #endregion
         
         public Cell(Point position, int size)
@@ -105,6 +108,7 @@ namespace WPFUserInterface
             Position = position;
             Size = size;
             State = (new Random().Next() % 2) == 0;
+            ChangeStateCommand = new ActionCommand(() => { State = !State; });
         }
         
         public event PropertyChangedEventHandler? PropertyChanged;
