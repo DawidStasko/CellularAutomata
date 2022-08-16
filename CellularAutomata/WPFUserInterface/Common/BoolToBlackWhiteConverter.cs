@@ -25,7 +25,7 @@ public class BoolToBlackWhiteConverter : IValueConverter
             return false;
         if (value is SolidColorBrush brush)
         {
-            if (brush == Brushes.Black)
+            if (brush == Brushes.White)
                 return false;
             else
                 return true;
