@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WPFUserInterface.Domain;
+namespace WPFUserInterface.Domain.Neighborhoods;
 
 public interface INeighborhood
 {

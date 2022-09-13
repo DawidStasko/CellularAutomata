@@ -1,4 +1,4 @@
-﻿namespace WPFUserInterface.Domain;
+﻿namespace WPFUserInterface.Domain.BoundaryConditions;
 
 public enum TwoDimensionBoundaries
 {

@@ -40,7 +40,7 @@ public class SimpleCell:NotificationBase
         Coordinates = new Coordinates(x, y);
         Position = position;
         Size = size;
-        State = (new Random().Next() % 2) == 0;
+        State = false;//(new Random().Next() % 2) == 0;
         ChangeStateCommand = new ActionCommand(ChangeState);
     }
 

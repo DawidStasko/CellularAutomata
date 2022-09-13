@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using WPFUserInterface.Common;
+using WPFUserInterface.Domain.BoundaryConditions;
 
-namespace WPFUserInterface.Domain;
+namespace WPFUserInterface.Domain.Neighborhoods;
 
-public class VonNeumannNeighborhood:INeighborhood
+public class VonNeumannNeighborhood:NeighborhoodBase
 {
-    private Dictionary<SimpleCell, IEnumerable<SimpleCell>?> _neighborhoods = new Dictionary<SimpleCell, IEnumerable<SimpleCell>?>();
-
-    public VonNeumannNeighborhood(IEnumerable<SimpleCell> cells, BoundaryBehaviour behaviour)
+    public VonNeumannNeighborhood(IEnumerable<SimpleCell> cells, BoundaryConditions.BoundaryConditions conditions)
     {
         var maxWidth = cells.Select(c => c.Coordinates.X).Max();
         var maxHeight = cells.Select(c => c.Coordinates.Y).Max();
@@ -24,7 +20,7 @@ public class VonNeumannNeighborhood:INeighborhood
                 BoundaryChecker.CheckBoundary(processedCell.Coordinates, maxWidth, maxHeight); 
 
 
-            if (behaviour == BoundaryBehaviour.Zero)
+            if (conditions == BoundaryConditions.BoundaryConditions.Constant)
             {
                 double neighborhoodDistance = (new Coordinates(0,0)).Distance(new Coordinates(1,0));
                 neighbors = cells.Where(c=>c.Coordinates.Distance(processedCell.Coordinates)<=neighborhoodDistance && c != processedCell).ToList();
@@ -35,10 +31,4 @@ public class VonNeumannNeighborhood:INeighborhood
         }
     }
 
-    public IEnumerable<SimpleCell> GetNeighbors(SimpleCell cell)
-    {
-        _neighborhoods.TryGetValue(cell, out IEnumerable<SimpleCell>? neighbors);
-        return neighbors ?? Enumerable.Empty<SimpleCell>();
-
-    }
 }

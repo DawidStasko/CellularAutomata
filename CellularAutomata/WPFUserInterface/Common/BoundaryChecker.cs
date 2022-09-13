@@ -1,4 +1,5 @@
 ﻿using WPFUserInterface.Domain;
+using WPFUserInterface.Domain.BoundaryConditions;
 
 namespace WPFUserInterface.Common;
 

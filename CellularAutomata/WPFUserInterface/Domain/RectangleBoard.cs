@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media.TextFormatting;
 using Microsoft.Xaml.Behaviors.Core;
 using WPFUserInterface.Common;
+using WPFUserInterface.Domain.Neighborhoods;
 
 namespace WPFUserInterface.Domain;
 
@@ -40,7 +41,7 @@ public class RectangleBoard:NotificationBase
             }
         }
 
-        _neighborhood = new MooreNeighborhood(Cells, BoundaryBehaviour.Zero);
+        _neighborhood = new MooreNeighborhood(Cells, BoundaryConditions.BoundaryConditions.Constant);
     }
 
     public void CalculateNextGeneration()
