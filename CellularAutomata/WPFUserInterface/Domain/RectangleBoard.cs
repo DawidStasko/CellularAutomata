@@ -40,7 +40,7 @@ public class RectangleBoard:NotificationBase
             }
         }
 
-        _neighborhood = new VonNeumannNeighborhood(Cells, BoundaryBehaviour.Zero);
+        _neighborhood = new MooreNeighborhood(Cells, BoundaryBehaviour.Zero);
     }
 
     public void CalculateNextGeneration()

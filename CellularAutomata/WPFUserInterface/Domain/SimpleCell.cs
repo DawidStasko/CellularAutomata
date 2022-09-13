@@ -31,16 +31,13 @@ public class SimpleCell:NotificationBase
     
     public ICommand ChangeStateCommand { get; }
 
-    public int HorizontalNo { get; }
-
-    public int VerticalNo { get; }
+    public Coordinates Coordinates { get; }
 
     #endregion
 
-    public SimpleCell(Point position, int size, int horizontalNo = Int32.MinValue, int verticalNo = Int32.MinValue)
+    public SimpleCell(Point position, int size, int x = Int32.MinValue, int y = Int32.MinValue)
     {
-        HorizontalNo = horizontalNo; 
-        VerticalNo = verticalNo;
+        Coordinates = new Coordinates(x, y);
         Position = position;
         Size = size;
         State = (new Random().Next() % 2) == 0;
