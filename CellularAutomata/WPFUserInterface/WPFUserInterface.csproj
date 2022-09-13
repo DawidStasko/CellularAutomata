@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
+    <Folder Include="View\" />
   </ItemGroup>
 
 </Project>
