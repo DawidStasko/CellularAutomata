@@ -15,8 +15,6 @@ public class SimpleCell:NotificationBase
 
     #region Properties
 
-    public int Size { get; }
-
     public Point Position { get; }
 
     public bool State
@@ -35,11 +33,10 @@ public class SimpleCell:NotificationBase
 
     #endregion
 
-    public SimpleCell(Point position, int size, int x = Int32.MinValue, int y = Int32.MinValue)
+    public SimpleCell(Point position, int x = Int32.MinValue, int y = Int32.MinValue)
     {
         Coordinates = new Coordinates(x, y);
         Position = position;
-        Size = size;
         State = false;//(new Random().Next() % 2) == 0;
         ChangeStateCommand = new ActionCommand(ChangeState);
     }

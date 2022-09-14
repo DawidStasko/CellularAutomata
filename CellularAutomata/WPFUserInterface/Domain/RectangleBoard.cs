@@ -28,7 +28,7 @@ public class RectangleBoard:NotificationBase
         }
     }
 
-    public RectangleBoard(int width, int height, int  cellSize)
+    public RectangleBoard(int width, int height)
     {
         Cells = new ObservableCollection<SimpleCell>();
 
@@ -36,8 +36,8 @@ public class RectangleBoard:NotificationBase
         {
             for (int j = 0; j < width; j++)
             {
-                var position = new Point(j * cellSize + 1.0, i * cellSize + 1.0);
-                Cells.Add(new SimpleCell( position, cellSize, j, i));
+                var position = new Point(j * 15 + 1.0, i * 15 + 1.0);
+                Cells.Add(new SimpleCell( position, j, i));
             }
         }
 

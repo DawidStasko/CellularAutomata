@@ -51,29 +51,18 @@ public class BoardVM:NotificationBase
         }
     }
 
-    public int CellSize
-    {
-        get => _cellSize;
-        set
-        {
-            _cellSize = value; 
-            OnPropertyChanged();
-        }
-    }
-
     #endregion
 
     public BoardVM()
     {
         BoardHeight = 3; 
         BoardWidth = 3;
-        CellSize = 15;
         DrawBoardCommand = new ActionCommand(DrawBoard);
     }
 
     private void DrawBoard()
     {
-        _board = new RectangleBoard(BoardWidth, BoardHeight, CellSize);
+        _board = new RectangleBoard(BoardWidth, BoardHeight);
         CalculateNextGenerationCommand = new ActionCommand(()=> _board.CalculateNextGeneration());
         OnPropertyChanged(nameof(Cells));
     }

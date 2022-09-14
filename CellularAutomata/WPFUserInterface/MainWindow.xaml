@@ -25,7 +25,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Rectangle Stroke="Black" Width="{Binding Size}" Height="{Binding Size}" 
+                        <Rectangle Stroke="Black" Width="15" Height="15" 
                                    Fill="{Binding State, Converter={StaticResource BoolToColorConverter}}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonUp" >
@@ -60,14 +60,6 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0">Height</Label>
                     <TextBox Grid.Column="1" Text="{Binding BoardHeight}" />
-                </Grid>
-                <Grid Margin="10, 5, 10, 5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0">Cell Size</Label>
-                    <TextBox Grid.Column="1" Text="{Binding CellSize}"/>
                 </Grid>
                 <Button Grid.ColumnSpan="2"  Command="{Binding DrawBoardCommand}">Draw Board</Button>
                 <Button Grid.ColumnSpan="2"  Command="{Binding CalculateNextGenerationCommand}">Next Generation</Button>
