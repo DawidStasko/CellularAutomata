@@ -12,34 +12,26 @@ using WPFUserInterface.Domain.Neighborhoods;
 
 namespace WPFUserInterface.Domain;
 
-public class RectangleBoard:NotificationBase
+public class RectangleBoard
 {
     private INeighborhood _neighborhood;
-    private ObservableCollection<SimpleCell> _cells;
     private Dictionary<SimpleCell, bool> _nextGeneration;
     
-    public ObservableCollection<SimpleCell> Cells
-    {
-        get => _cells;
-        set
-        {
-            _cells = value;
-            OnPropertyChanged();
-        }
-    }
+    public IEnumerable<SimpleCell> Cells { get; set; }
 
     public RectangleBoard(int width, int height)
     {
-        Cells = new ObservableCollection<SimpleCell>();
+        var cells = new List<SimpleCell>();
 
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                var position = new Point(j * 15 + 1.0, i * 15 + 1.0);
-                Cells.Add(new SimpleCell( position, j, i));
+                cells.Add(new SimpleCell( j, i));
             }
         }
+
+        Cells = cells;
 
         _neighborhood = new MooreNeighborhood(Cells, BoundaryConditions.BoundaryConditions.Constant);
     }

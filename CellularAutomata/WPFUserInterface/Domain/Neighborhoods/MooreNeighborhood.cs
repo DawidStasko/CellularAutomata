@@ -15,7 +15,7 @@ public class MooreNeighborhood:NeighborhoodBase
 
         if (conditions == BoundaryConditions.BoundaryConditions.Constant)
         {
-            _boundaryCells = new ConstantBoundary(maxWidth, maxHeight, false);
+            _boundaryCells = new ConstantBoundary(maxWidth, maxHeight, true);
         }
 
 

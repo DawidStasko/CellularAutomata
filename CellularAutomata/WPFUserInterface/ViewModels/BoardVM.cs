@@ -4,19 +4,27 @@ using Microsoft.Xaml.Behaviors.Core;
 using WPFUserInterface.Common;
 using WPFUserInterface.Domain;
 
-namespace WPFUserInterface.View;
+namespace WPFUserInterface.ViewModels;
 
 public class BoardVM:NotificationBase
 {
     private RectangleBoard _board;
     private int _boardHeight;
     private int _boardWidth;
-    private int _cellSize;
     private ICommand _calculateNextGenerationCommand;
+    private ObservableCollection<CellVM> _cells = new ObservableCollection<CellVM>();
 
     #region Properties
 
-    public ObservableCollection<SimpleCell> Cells  => _board?.Cells ?? new ObservableCollection<SimpleCell>();
+    public ObservableCollection<CellVM> Cells
+    {
+        get => _cells;
+        set
+        {
+            _cells = value; 
+            OnPropertyChanged();
+        }
+    }
 
     public ICommand CalculateNextGenerationCommand
     {
@@ -63,9 +71,16 @@ public class BoardVM:NotificationBase
     private void DrawBoard()
     {
         _board = new RectangleBoard(BoardWidth, BoardHeight);
-        CalculateNextGenerationCommand = new ActionCommand(()=> _board.CalculateNextGeneration());
-        OnPropertyChanged(nameof(Cells));
+        foreach (var cell in _board.Cells)
+        {
+            Cells.Add(new CellVM(cell));
+        }
+        CalculateNextGenerationCommand = new ActionCommand(CalculateNextGeneration);
     }
 
-
+    private void CalculateNextGeneration()
+    {
+        _board.CalculateNextGeneration();
+        OnPropertyChanged(nameof(Cells));
+    }
 }

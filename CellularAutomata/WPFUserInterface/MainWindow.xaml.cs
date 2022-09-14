@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 using Microsoft.Xaml.Behaviors.Core;
 using WPFUserInterface.Annotations;
 using WPFUserInterface.Domain;
-using WPFUserInterface.View;
+using WPFUserInterface.ViewModels;
 
 namespace WPFUserInterface
 {
