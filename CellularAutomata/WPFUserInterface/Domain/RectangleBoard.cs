@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -19,13 +20,13 @@ public class RectangleBoard
     
     public IEnumerable<SimpleCell> Cells { get; set; }
 
-    public RectangleBoard(int width, int height)
+    public RectangleBoard(BoardData data)
     {
         var cells = new List<SimpleCell>();
 
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < data.Height; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < data.Width; j++)
             {
                 cells.Add(new SimpleCell( j, i));
             }
@@ -33,7 +34,18 @@ public class RectangleBoard
 
         Cells = cells;
 
-        _neighborhood = new MooreNeighborhood(Cells, BoundaryConditions.BoundaryConditions.Constant);
+        switch (data.NeighborhoodType)
+        {
+            case NeighborhoodType.VonNeumann:
+                _neighborhood = new VonNeumannNeighborhood(Cells, data.BoundaryConditions);
+                break;
+            case NeighborhoodType.Moore:
+                _neighborhood = new MooreNeighborhood(Cells, data.BoundaryConditions);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
     }
 
     public void CalculateNextGeneration()

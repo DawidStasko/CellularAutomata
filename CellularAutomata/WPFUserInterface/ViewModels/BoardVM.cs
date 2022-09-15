@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Reflection.Metadata;
 using System.Windows.Input;
 using Microsoft.Xaml.Behaviors.Core;
 using WPFUserInterface.Common;
 using WPFUserInterface.Domain;
+using WPFUserInterface.Domain.BoundaryConditions;
+using WPFUserInterface.Domain.Neighborhoods;
 
 namespace WPFUserInterface.ViewModels;
 
@@ -63,14 +66,15 @@ public class BoardVM:NotificationBase
 
     public BoardVM()
     {
-        BoardHeight = 3; 
-        BoardWidth = 3;
+        BoardHeight = 30; 
+        BoardWidth = 30;
         DrawBoardCommand = new ActionCommand(DrawBoard);
     }
 
     private void DrawBoard()
     {
-        _board = new RectangleBoard(BoardWidth, BoardHeight);
+        var boardData = new BoardData() {BoundaryConditions = BoundaryConditions.Constant, Height = BoardHeight, Width = BoardWidth, NeighborhoodType = NeighborhoodType.Moore};
+        _board = new RectangleBoard(boardData);
         foreach (var cell in _board.Cells)
         {
             Cells.Add(new CellVM(cell));

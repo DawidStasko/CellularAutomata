@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:WPFUserInterface.Common"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:views="clr-namespace:WPFUserInterface.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -16,31 +17,7 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="Black" BorderThickness="2">
-            <ItemsControl ItemsSource="{Binding Cells}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Rectangle Stroke="Black" Width="15" Height="15" 
-                                   Fill="{Binding State, Converter={StaticResource BoolToColorConverter}}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonUp" >
-                                    <i:InvokeCommandAction Command="{Binding Path=ChangeStateCommand}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Rectangle>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemContainerStyle>
-                    <Style>
-                        <Setter Property="Canvas.Left" Value="{Binding Position.X}"/>
-                        <Setter Property="Canvas.Top" Value="{Binding Position.Y}"/>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-            </ItemsControl>
+            <views:RectangleBoardView DataContext="{Binding BoardVM}"/>
         </Border>
         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
             <StackPanel >
@@ -60,8 +37,8 @@
                     <Label Grid.Column="0">Height</Label>
                     <TextBox Grid.Column="1" Text="{Binding BoardHeight}" />
                 </Grid>
-                <Button Grid.ColumnSpan="2"  Command="{Binding DrawBoardCommand}">Draw Board</Button>
-                <Button Grid.ColumnSpan="2"  Command="{Binding CalculateNextGenerationCommand}">Next Generation</Button>
+                <Button Grid.ColumnSpan="2"  Command="{Binding BoardVM.DrawBoardCommand}">Draw Board</Button>
+                <Button Grid.ColumnSpan="2"  Command="{Binding BoardVM.CalculateNextGenerationCommand}">Next Generation</Button>
             </StackPanel>
         </Border>
     </Grid>

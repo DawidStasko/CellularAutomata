@@ -28,11 +28,25 @@ namespace WPFUserInterface
     /// </summary>
     public partial class MainWindow : Window
     {
+        public BoardVM BoardVM { get; set; }
+
+        public int BoardHeight
+        {
+            get => BoardVM.BoardHeight;
+            set => BoardVM.BoardHeight = value;
+        }
+
+        public int BoardWidth
+        {
+            get => BoardVM.BoardWidth;
+            set => BoardVM.BoardWidth=value;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            BoardVM vm = new BoardVM();
-            DataContext = vm;
+            BoardVM = new BoardVM();
+            DataContext = this;
         }
     }
 }
