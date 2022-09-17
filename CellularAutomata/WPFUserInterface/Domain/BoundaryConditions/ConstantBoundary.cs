@@ -28,10 +28,10 @@ public class ConstantBoundary:IBoundary
             cells.Add(rightCell);
         }
 
-        //cells.Add(new SimpleCell(-1, -1) { State = value });
-        //cells.Add(new SimpleCell(maxX + 1, -1) { State = value });
-        //cells.Add(new SimpleCell(-1, maxY+1) { State = value });
-        //cells.Add(new SimpleCell(maxX + 1, maxY + 1) { State = value });
+        cells.Add(new SimpleCell(-1, -1) { State = value });
+        cells.Add(new SimpleCell(maxX + 1, -1) { State = value });
+        cells.Add(new SimpleCell(-1, maxY+1) { State = value });
+        cells.Add(new SimpleCell(maxX + 1, maxY + 1) { State = value });
 
         BoundaryCells = cells;
     }

@@ -8,5 +8,5 @@ public class BoardData
     public int Height { get; set; }
 
     public NeighborhoodType NeighborhoodType { get; set; }
-    public BoundaryConditions.BoundaryConditions BoundaryConditions { get; set; }
+    public BoundaryConditionsTypes BoundaryConditionType { get; set; }
 }

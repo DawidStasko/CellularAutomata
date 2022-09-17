@@ -8,16 +8,12 @@ namespace WPFUserInterface.Domain.Neighborhoods;
 
 public class MooreNeighborhood:NeighborhoodBase
 {
-    public MooreNeighborhood(IEnumerable<SimpleCell> cells, BoundaryConditions.BoundaryConditions conditions)
+    public MooreNeighborhood(IEnumerable<SimpleCell> cells, BoundaryConditions.BoundaryConditionsTypes conditionsType)
     {
         var maxWidth = cells.Select(c => c.Coordinates.X).Max();
         var maxHeight = cells.Select(c => c.Coordinates.Y).Max();
 
-        if (conditions == BoundaryConditions.BoundaryConditions.Constant)
-        {
-            _boundaryCells = new ConstantBoundary(maxWidth, maxHeight, true);
-        }
-
+        IBoundary _boundaryCells = BoundaryCellsFactory.Create(conditionsType, cells, maxWidth, maxHeight);
 
         foreach (var processedCell in cells)
         {

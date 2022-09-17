@@ -73,7 +73,7 @@ public class BoardVM:NotificationBase
 
     private void DrawBoard()
     {
-        var boardData = new BoardData() {BoundaryConditions = BoundaryConditions.Constant, Height = BoardHeight, Width = BoardWidth, NeighborhoodType = NeighborhoodType.Moore};
+        var boardData = new BoardData() {BoundaryConditionType = BoundaryConditionsTypes.Constant, Height = BoardHeight, Width = BoardWidth, NeighborhoodType = NeighborhoodType.Moore};
         _board = new RectangleBoard(boardData);
         foreach (var cell in _board.Cells)
         {

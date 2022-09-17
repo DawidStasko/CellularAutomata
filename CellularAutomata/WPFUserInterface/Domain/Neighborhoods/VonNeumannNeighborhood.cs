@@ -7,7 +7,7 @@ namespace WPFUserInterface.Domain.Neighborhoods;
 
 public class VonNeumannNeighborhood:NeighborhoodBase
 {
-    public VonNeumannNeighborhood(IEnumerable<SimpleCell> cells, BoundaryConditions.BoundaryConditions conditions)
+    public VonNeumannNeighborhood(IEnumerable<SimpleCell> cells, BoundaryConditions.BoundaryConditionsTypes conditionsTypes)
     {
         var maxWidth = cells.Select(c => c.Coordinates.X).Max();
         var maxHeight = cells.Select(c => c.Coordinates.Y).Max();
@@ -20,7 +20,7 @@ public class VonNeumannNeighborhood:NeighborhoodBase
                 BoundaryChecker.CheckBoundary(processedCell.Coordinates, maxWidth, maxHeight); 
 
 
-            if (conditions == BoundaryConditions.BoundaryConditions.Constant)
+            if (conditionsTypes == BoundaryConditionsTypes.Constant)
             {
                 double neighborhoodDistance = (new Coordinates(0,0)).Distance(new Coordinates(1,0));
                 neighbors = cells.Where(c=>c.Coordinates.Distance(processedCell.Coordinates)<=neighborhoodDistance && c != processedCell).ToList();

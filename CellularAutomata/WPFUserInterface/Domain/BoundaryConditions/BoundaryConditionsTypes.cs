@@ -1,6 +1,6 @@
 ﻿namespace WPFUserInterface.Domain.BoundaryConditions;
 
-public enum BoundaryConditions
+public enum BoundaryConditionsTypes
 {
     Constant, 
     Mirroring, 

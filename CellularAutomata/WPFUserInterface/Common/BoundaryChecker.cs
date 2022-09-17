@@ -1,4 +1,5 @@
-﻿using WPFUserInterface.Domain;
+﻿using System;
+using WPFUserInterface.Domain;
 using WPFUserInterface.Domain.BoundaryConditions;
 
 namespace WPFUserInterface.Common;
@@ -7,21 +8,25 @@ public static class BoundaryChecker
 {
     public static TwoDimensionBoundaries CheckBoundary(Coordinates coordinates, int maxXCoordinate, int maxYCoordinate)
     {
-        if (coordinates.X == 0 && coordinates.Y == 0)
+        var x = coordinates.X;
+        var y = coordinates.Y;
+        if (x < 0 || y < 0 || x > maxXCoordinate || y > maxYCoordinate)
+            throw new ArgumentOutOfRangeException();
+        if (x == 0 && y == 0)
             return TwoDimensionBoundaries.TopLeft;
-        if (coordinates.X == maxXCoordinate && coordinates.Y == 0)
+        if (x == maxXCoordinate && y == 0)
             return TwoDimensionBoundaries.TopRight; 
-        if (coordinates.X == 0 && coordinates.Y == maxYCoordinate)
+        if (x == 0 && y == maxYCoordinate)
             return TwoDimensionBoundaries.BottomLeft;
-        if (coordinates.X == maxXCoordinate && coordinates.Y == maxYCoordinate)
+        if (x == maxXCoordinate && y == maxYCoordinate)
             return TwoDimensionBoundaries.BottomRight;
-        if (coordinates.X == 0)
+        if (x == 0)
             return TwoDimensionBoundaries.Left; 
-        if (coordinates.X == maxXCoordinate) 
+        if (x == maxXCoordinate) 
             return TwoDimensionBoundaries.Right;
-        if (coordinates.Y == 0)
+        if (y == 0)
             return TwoDimensionBoundaries.Top; 
-        if (coordinates.Y == maxYCoordinate)
+        if (y == maxYCoordinate)
             return TwoDimensionBoundaries.Bottom;
         return TwoDimensionBoundaries.NotOnBoundary;
     }
