@@ -25,4 +25,8 @@
     <ProjectReference Include="..\WPFUserInterface\WPFUserInterface.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Neighborhoods\" />
+  </ItemGroup>
+
 </Project>

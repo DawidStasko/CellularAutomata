@@ -17,15 +17,11 @@ public class MooreNeighborhood:NeighborhoodBase
 
         foreach (var processedCell in cells)
         {
-            TwoDimensionBoundaries boundaryCell =
-                BoundaryChecker.CheckBoundary(processedCell.Coordinates, maxWidth, maxHeight);
-
             double neighborhoodDistance = (new Coordinates(0, 0)).Distance(new Coordinates(1, 1));
             var neighbors = cells.Where(c => c.Coordinates.Distance(processedCell.Coordinates) <= neighborhoodDistance && c != processedCell).ToList();
-            var tmp = (_boundaryCells.BoundaryCells.Where(c => c.Coordinates.Distance(processedCell.Coordinates) <= neighborhoodDistance).ToList());
-            neighbors.AddRange(tmp);
+            var neighborsFromBoundary = (_boundaryCells.BoundaryCells.Where(c => c.Coordinates.Distance(processedCell.Coordinates) <= neighborhoodDistance).ToList());
+            neighbors.AddRange(neighborsFromBoundary);
             _neighborhoods.Add(processedCell, neighbors);
         }
-        
     }
 }
