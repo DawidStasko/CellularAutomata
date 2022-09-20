@@ -20,11 +20,10 @@ public class MooreNeighborhoodTests
     [InlineData(7, 3)]
     public void MooreNeighborhood_ShouldHaveEightNeighborsFromBoard_WhenNotOnBoundary(int x, int y)
     {
-        var cells = PrepareRectangleCells();
+        var board = PrepareRectangleBoard();
+        var cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
+        _sut = new MooreNeighborhood(board, BoundaryConditionsTypes.Constant);
 
-        _sut = new MooreNeighborhood(cells, BoundaryConditionsTypes.Constant);
-
-        var cellToTest = cells.Single(c => c.Coordinates == new Coordinates(x, y));
         var neighbors = _sut.GetNeighbors(cellToTest).ToList();
 
         neighbors.Should().HaveCount(8);
@@ -39,7 +38,7 @@ public class MooreNeighborhoodTests
 
         foreach (var processedNeighbor in neighbors)
         {
-            cells.Should().Contain(processedNeighbor);
+            board.Should().Contain(processedNeighbor);
         }
     }
 
@@ -48,13 +47,12 @@ public class MooreNeighborhoodTests
     [InlineData(0, 3)]
     [InlineData(3, 9)]
     [InlineData(9, 3)]
-    public void MooreNeighborhood_ShouldHaveFiveNeighborsFromBoardThreeFromBoundary_WhenOnBoundaryButNotInCorner(int x, int y)
+     public void MooreNeighborhood_ShouldHaveFiveNeighborsFromBoardThreeFromBoundary_WhenOnBoundaryButNotInCorner(int x, int y)
     {
-        var cells = PrepareRectangleCells();
-
-        _sut = new MooreNeighborhood(cells, BoundaryConditionsTypes.Constant);
-
-        var cellToTest = cells.Single(c => c.Coordinates == new Coordinates(x, y));
+        var board = PrepareRectangleBoard();
+        var cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
+        _sut = new MooreNeighborhood(board, BoundaryConditionsTypes.Constant);
+        
         var neighbors = _sut.GetNeighbors(cellToTest).ToList();
 
         neighbors.Should().HaveCount(8);
@@ -66,7 +64,7 @@ public class MooreNeighborhoodTests
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 1, y + 1));
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 0, y + 1));
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 1, y + 1));
-        neighbors.Count(c => cells.Contains(c)).Should().Be(5);
+        neighbors.Count(c => board.Contains(c)).Should().Be(5);
     }
 
     [Theory]
@@ -76,11 +74,10 @@ public class MooreNeighborhoodTests
     [InlineData(9, 9)]
     public void MooreNeighborhood_ShouldHaveThreeNeighborsFromBoardFiveFromBoundary_WhenOnCorner(int x, int y)
     {
-        var cells = PrepareRectangleCells();
+        var board = PrepareRectangleBoard();
+        var cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
+        _sut = new MooreNeighborhood(board, BoundaryConditionsTypes.Constant);
 
-        _sut = new MooreNeighborhood(cells, BoundaryConditionsTypes.Constant);
-
-        var cellToTest = cells.Single(c => c.Coordinates == new Coordinates(x, y));
         var neighbors = _sut.GetNeighbors(cellToTest).ToList();
 
         neighbors.Should().HaveCount(8);
@@ -92,11 +89,24 @@ public class MooreNeighborhoodTests
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 1, y + 1));
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 0, y + 1));
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 1, y + 1));
-        neighbors.Count(c => cells.Contains(c)).Should().Be(3);
+        neighbors.Count(c => board.Contains(c)).Should().Be(3);
 
     }
 
-    private IEnumerable<SimpleCell> PrepareRectangleCells()
+    [Fact]
+    public void MooreNeighborhood_ShouldReturnNull_WhenCellIsNotOnBoard()
+    {
+        var board = PrepareRectangleBoard();
+        var cellOutsideOfBoard = new SimpleCell(30, 30);
+        _sut = new MooreNeighborhood(board, BoundaryConditionsTypes.Constant);
+
+        var neighbors = _sut.GetNeighbors(cellOutsideOfBoard);
+
+        neighbors.Should().BeNull();
+    }
+
+
+    private IEnumerable<SimpleCell> PrepareRectangleBoard()
     {
         var cells = new List<SimpleCell>();
         for (int i = 0; i < 10; i++)

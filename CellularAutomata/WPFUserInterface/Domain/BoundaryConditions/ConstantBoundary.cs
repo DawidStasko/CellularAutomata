@@ -5,10 +5,18 @@ using System.Windows;
 
 namespace WPFUserInterface.Domain.Boundaries;
 
+/// <summary>
+/// Class responsible for cells creation with constant values which lay as neighbors for most outside cells.
+/// </summary>
 public class ConstantBoundary:IBoundary
 {
     public IEnumerable<SimpleCell> BoundaryCells { get; }
-
+    /// <summary>
+    /// Class responsible for cells creation with constant values which lay as neighbors for most outside cells.
+    /// </summary>
+    /// <param name="maxX">The highest index which cell can have horizontally.</param>
+    /// <param name="maxY">The highest index which cell can have vertically.</param>
+    /// <param name="value">The value which will be assigned to boundary cells.</param>
     public ConstantBoundary(int maxX, int maxY, bool value)
     {
         var cells = new List<SimpleCell>();

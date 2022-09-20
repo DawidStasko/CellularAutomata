@@ -18,7 +18,7 @@ public readonly struct Coordinates
 
     public double Distance(Coordinates coords)
     {
-        return Math.Sqrt(Math.Pow(X - coords.X, 2) + Math.Pow(Y - coords.Y, 2));
+        return Math.Sqrt((Math.Pow(coords.X - X, 2) + Math.Pow(coords.Y-Y, 2)));
     }
     
     public override bool Equals(object? obj)
