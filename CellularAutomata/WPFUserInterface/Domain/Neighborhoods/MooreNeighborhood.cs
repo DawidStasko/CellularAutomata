@@ -9,7 +9,7 @@ namespace WPFUserInterface.Domain.Neighborhoods;
 public class MooreNeighborhood:NeighborhoodBase
 {
     public MooreNeighborhood(IEnumerable<SimpleCell> cells, BoundaryConditions.BoundaryConditionsTypes conditionsType)
-    {
+    { 
         var maxWidth = cells.Select(c => c.Coordinates.X).Max();
         var maxHeight = cells.Select(c => c.Coordinates.Y).Max();
 

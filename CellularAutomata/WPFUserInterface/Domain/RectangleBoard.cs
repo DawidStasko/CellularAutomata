@@ -34,18 +34,7 @@ public class RectangleBoard
 
         Cells = cells;
 
-        switch (data.NeighborhoodType)
-        {
-            case NeighborhoodType.VonNeumann:
-                _neighborhood = new VonNeumannNeighborhood(Cells, data.BoundaryConditionType);
-                break;
-            case NeighborhoodType.Moore:
-                _neighborhood = new MooreNeighborhood(Cells, data.BoundaryConditionType);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-        
+        _neighborhood = NeighborhoodsFactory.Create(Cells, data.BoundaryConditionType, data.NeighborhoodType);
     }
 
     public void CalculateNextGeneration()

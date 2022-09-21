@@ -21,7 +21,7 @@ public class BoundaryCellsFactory
         switch (conditionsTypes)
         {
             case BoundaryConditionsTypes.Constant:
-                return new ConstantBoundary(width, height, true);
+                return new ConstantBoundary(width, height, false);
             case BoundaryConditionsTypes.Mirroring:
                 break;
             case BoundaryConditionsTypes.Continuous:
