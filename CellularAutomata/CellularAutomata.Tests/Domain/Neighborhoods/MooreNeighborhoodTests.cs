@@ -97,7 +97,7 @@ public class MooreNeighborhoodTests
     public void MooreNeighborhood_ShouldReturnNull_WhenCellIsNotOnBoard()
     {
         var board = PrepareRectangleBoard();
-        var cellOutsideOfBoard = new SimpleCell(30, 30);
+        var cellOutsideOfBoard = new BooleanCell(30, 30);
         _sut = new MooreNeighborhood(board, BoundaryConditionsTypes.Constant);
 
         var neighbors = _sut.GetNeighbors(cellOutsideOfBoard);
@@ -106,14 +106,14 @@ public class MooreNeighborhoodTests
     }
 
 
-    private IEnumerable<SimpleCell> PrepareRectangleBoard()
+    private IEnumerable<BooleanCell> PrepareRectangleBoard()
     {
-        var cells = new List<SimpleCell>();
+        var cells = new List<BooleanCell>();
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                cells.Add(new SimpleCell(i,j));
+                cells.Add(new BooleanCell(i,j));
             }
         }
 

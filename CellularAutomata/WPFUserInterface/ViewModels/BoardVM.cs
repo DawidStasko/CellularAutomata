@@ -66,8 +66,8 @@ public class BoardVM:NotificationBase
 
     public BoardVM()
     {
-        BoardHeight = 30; 
-        BoardWidth = 30;
+        BoardHeight = 3; 
+        BoardWidth = 3;
         DrawBoardCommand = new ActionCommand(DrawBoard);
     }
 
@@ -85,6 +85,5 @@ public class BoardVM:NotificationBase
     private void CalculateNextGeneration()
     {
         _board.CalculateNextGeneration();
-        OnPropertyChanged(nameof(Cells));
     }
 }

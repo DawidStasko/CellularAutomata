@@ -12,7 +12,7 @@ public class NeighborhoodsFactoryTests
     [Fact]
     public void Create_ShouldReturnMooreNeighborhood_WhenThisTypeIsChosen()
     {
-        IEnumerable<SimpleCell> cells = PrepareRectangleBoard();
+        IEnumerable<BooleanCell> cells = PrepareRectangleBoard();
         BoundaryConditionsTypes boundaryConditions = BoundaryConditionsTypes.Constant;
         NeighborhoodType neighborhoodType = NeighborhoodType.Moore;
 
@@ -24,7 +24,7 @@ public class NeighborhoodsFactoryTests
     [Fact]
     public void Create_ShouldReturnVonNeumannNeighborhood_WhenThisTypeIsChosen()
     {
-        IEnumerable<SimpleCell> cells = PrepareRectangleBoard();
+        IEnumerable<BooleanCell> cells = PrepareRectangleBoard();
         BoundaryConditionsTypes boundaryConditions = BoundaryConditionsTypes.Constant;
         NeighborhoodType neighborhoodType = NeighborhoodType.VonNeumann;
 
@@ -33,14 +33,14 @@ public class NeighborhoodsFactoryTests
         neighborhood.Should().BeOfType<VonNeumannNeighborhood>();
     }
 
-    private IEnumerable<SimpleCell> PrepareRectangleBoard()
+    private IEnumerable<BooleanCell> PrepareRectangleBoard()
     {
-        var cells = new List<SimpleCell>();
+        var cells = new List<BooleanCell>();
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                cells.Add(new SimpleCell(i, j));
+                cells.Add(new BooleanCell(i, j));
             }
         }
 

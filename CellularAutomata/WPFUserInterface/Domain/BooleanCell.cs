@@ -9,7 +9,7 @@ using WPFUserInterface.Common;
 
 namespace WPFUserInterface.Domain;
 
-public class SimpleCell:NotificationBase 
+public class BooleanCell:NotificationBase, ICell
 {
     private bool _state;
 
@@ -25,7 +25,7 @@ public class SimpleCell:NotificationBase
 
     public Coordinates Coordinates { get; }
     
-    public SimpleCell(int x = Int32.MinValue, int y = Int32.MinValue)
+    public BooleanCell(int x = Int32.MinValue, int y = Int32.MinValue)
     {
         Coordinates = new Coordinates(x, y);
         State = false;//(new Random().Next() % 2) == 0;

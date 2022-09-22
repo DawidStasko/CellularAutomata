@@ -16,19 +16,19 @@ namespace WPFUserInterface.Domain;
 public class RectangleBoard
 {
     private INeighborhood _neighborhood;
-    private Dictionary<SimpleCell, bool> _nextGeneration;
+    private Dictionary<BooleanCell, bool> _nextGeneration;
     
-    public IEnumerable<SimpleCell> Cells { get; set; }
+    public IEnumerable<BooleanCell> Cells { get; set; }
 
     public RectangleBoard(BoardData data)
     {
-        var cells = new List<SimpleCell>();
+        var cells = new List<BooleanCell>();
 
         for (int i = 0; i < data.Height; i++)
         {
             for (int j = 0; j < data.Width; j++)
             {
-                cells.Add(new SimpleCell( j, i));
+                cells.Add(new BooleanCell( j, i));
             }
         }
 
@@ -39,7 +39,7 @@ public class RectangleBoard
 
     public void CalculateNextGeneration()
     {
-        _nextGeneration = new Dictionary<SimpleCell, bool>(); 
+        _nextGeneration = new Dictionary<BooleanCell, bool>(); 
         foreach (var processedCell in Cells)
         {
             var neighbors = _neighborhood.GetNeighbors(processedCell);

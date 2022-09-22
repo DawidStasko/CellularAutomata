@@ -9,7 +9,7 @@ namespace WPFUserInterface.ViewModels;
 
 public class CellVM:NotificationBase
 {
-    private readonly SimpleCell _cell;
+    private readonly BooleanCell _cell;
     private Point? _point;
     public bool State => _cell.State;
 
@@ -19,7 +19,7 @@ public class CellVM:NotificationBase
 
     public ICommand ChangeStateCommand { get; }
 
-    public CellVM(SimpleCell cell)
+    public CellVM(BooleanCell cell)
     {
         _cell = cell;
         ChangeStateCommand = new ActionCommand(ChangeState);
@@ -28,7 +28,7 @@ public class CellVM:NotificationBase
 
     private void OnCellChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(SimpleCell.State))
+        if (e.PropertyName == nameof(BooleanCell.State))
         {
             OnPropertyChanged(nameof(State));
         }

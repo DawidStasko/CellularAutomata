@@ -6,11 +6,11 @@ namespace WPFUserInterface.Domain.Neighborhoods;
 
 public abstract class NeighborhoodBase:INeighborhood
 {
-    protected Dictionary<SimpleCell, IEnumerable<SimpleCell>> _neighborhoods = new Dictionary<SimpleCell, IEnumerable<SimpleCell>>();
+    protected Dictionary<BooleanCell, IEnumerable<BooleanCell>> _neighborhoods = new Dictionary<BooleanCell, IEnumerable<BooleanCell>>();
     protected IBoundary _boundaryCells;
-    public virtual IEnumerable<SimpleCell>? GetNeighbors(SimpleCell cell)
+    public virtual IEnumerable<BooleanCell>? GetNeighbors(BooleanCell cell)
     {
-        _neighborhoods.TryGetValue(cell, out IEnumerable<SimpleCell>? neighbors);
+        _neighborhoods.TryGetValue(cell, out IEnumerable<BooleanCell>? neighbors);
         return neighbors;
     }
 }

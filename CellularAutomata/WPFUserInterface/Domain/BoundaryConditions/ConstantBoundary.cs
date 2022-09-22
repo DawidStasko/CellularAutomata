@@ -10,7 +10,7 @@ namespace WPFUserInterface.Domain.Boundaries;
 /// </summary>
 public class ConstantBoundary:IBoundary
 {
-    public IEnumerable<SimpleCell> BoundaryCells { get; }
+    public IEnumerable<BooleanCell> BoundaryCells { get; }
     /// <summary>
     /// Class responsible for cells creation with constant values which lay as neighbors for most outside cells.
     /// </summary>
@@ -19,27 +19,27 @@ public class ConstantBoundary:IBoundary
     /// <param name="value">The value which will be assigned to boundary cells.</param>
     public ConstantBoundary(int maxX, int maxY, bool value)
     {
-        var cells = new List<SimpleCell>();
+        var cells = new List<BooleanCell>();
         for (int i = 0; i <= maxX; i++)
         {
-            var topCell = new SimpleCell( i, -1){State = value};
+            var topCell = new BooleanCell( i, -1){State = value};
             cells.Add(topCell);
-            var bottomCell = new SimpleCell(i, maxY+1) { State = value };
+            var bottomCell = new BooleanCell(i, maxY+1) { State = value };
             cells.Add(bottomCell);
         }
 
         for (int i = 0; i <= maxY; i++)
         {
-            var leftCell = new SimpleCell(-1, i) { State = value };
+            var leftCell = new BooleanCell(-1, i) { State = value };
             cells.Add(leftCell);
-            var rightCell = new SimpleCell(maxX+1, i) { State = value };
+            var rightCell = new BooleanCell(maxX+1, i) { State = value };
             cells.Add(rightCell);
         }
 
-        cells.Add(new SimpleCell(-1, -1) { State = value });
-        cells.Add(new SimpleCell(maxX + 1, -1) { State = value });
-        cells.Add(new SimpleCell(-1, maxY+1) { State = value });
-        cells.Add(new SimpleCell(maxX + 1, maxY + 1) { State = value });
+        cells.Add(new BooleanCell(-1, -1) { State = value });
+        cells.Add(new BooleanCell(maxX + 1, -1) { State = value });
+        cells.Add(new BooleanCell(-1, maxY+1) { State = value });
+        cells.Add(new BooleanCell(maxX + 1, maxY + 1) { State = value });
 
         BoundaryCells = cells;
     }

@@ -16,7 +16,7 @@ public class BoundaryCellsFactoryTests
 
         IBoundary? _sut =
             BoundaryCellsFactory.Create(BoundaryConditionsTypes.Constant, 
-                Enumerable.Empty<SimpleCell>(), 10, 10);
+                Enumerable.Empty<BooleanCell>(), 10, 10);
         
         _sut.Should().NotBeNull();
         _sut.Should().BeOfType<ConstantBoundary>();

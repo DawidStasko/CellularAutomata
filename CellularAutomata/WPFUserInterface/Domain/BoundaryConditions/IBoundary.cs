@@ -5,5 +5,5 @@ namespace WPFUserInterface.Domain.Boundaries;
 
 public interface IBoundary
 {
-    IEnumerable<SimpleCell> BoundaryCells { get; }
+    IEnumerable<BooleanCell> BoundaryCells { get; }
 }
