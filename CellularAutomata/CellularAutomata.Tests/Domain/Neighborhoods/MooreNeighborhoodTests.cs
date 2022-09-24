@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using NSubstitute;
 using WPFUserInterface.Domain;
 using WPFUserInterface.Domain.BoundaryConditions;
 using WPFUserInterface.Domain.Neighborhoods;
@@ -106,14 +107,16 @@ public class MooreNeighborhoodTests
     }
 
 
-    private IEnumerable<BooleanCell> PrepareRectangleBoard()
+    private IEnumerable<ICell> PrepareRectangleBoard()
     {
-        var cells = new List<BooleanCell>();
+        var cells = new List<ICell>();
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                cells.Add(new BooleanCell(i,j));
+                var cellSubstitute = Substitute.For<ICell>();
+                cellSubstitute.Coordinates.Returns(new Coordinates(i, j));
+                cells.Add(cellSubstitute);
             }
         }
 

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace CellularAutomata.Tests.Domain;
 
-public class SimpleCellTests
+public class BooleanCellTests
 {
     private BooleanCell _sut; 
 

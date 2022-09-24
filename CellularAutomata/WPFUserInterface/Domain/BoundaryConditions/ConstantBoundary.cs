@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
-using System.Windows;
+﻿using System.Collections.Generic;
 
 namespace WPFUserInterface.Domain.Boundaries;
 
@@ -10,7 +7,7 @@ namespace WPFUserInterface.Domain.Boundaries;
 /// </summary>
 public class ConstantBoundary:IBoundary
 {
-    public IEnumerable<BooleanCell> BoundaryCells { get; }
+    public IEnumerable<ICell> BoundaryCells { get; }
     /// <summary>
     /// Class responsible for cells creation with constant values which lay as neighbors for most outside cells.
     /// </summary>
@@ -19,7 +16,7 @@ public class ConstantBoundary:IBoundary
     /// <param name="value">The value which will be assigned to boundary cells.</param>
     public ConstantBoundary(int maxX, int maxY, bool value)
     {
-        var cells = new List<BooleanCell>();
+        var cells = new List<ICell>();
         for (int i = 0; i <= maxX; i++)
         {
             var topCell = new BooleanCell( i, -1){State = value};

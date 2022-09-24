@@ -4,5 +4,5 @@ namespace WPFUserInterface.Domain.Neighborhoods;
 
 public interface INeighborhood
 {
-    IEnumerable<BooleanCell>? GetNeighbors(BooleanCell cell);
+    IEnumerable<ICell>? GetNeighbors(ICell cell);
 }

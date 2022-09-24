@@ -1,8 +1,10 @@
-﻿namespace WPFUserInterface.Domain;
+﻿using System.ComponentModel;
 
-public interface ICell
+namespace WPFUserInterface.Domain;
+
+public interface ICell:INotifyPropertyChanged
 {
-    bool State { get; }
+    bool State { get; set;  }
     Coordinates Coordinates { get; }
     void ChangeState();
 }

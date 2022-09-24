@@ -28,7 +28,6 @@ public class RectangleBoardTests
     [Theory]
     [InlineData(3, 3, 9)]
     [InlineData(3, 4, 12)]
-    [InlineData(150, 200, 30000)]
     public void RectangleBoard_ShouldCreateCellsInGridWithAmountEqualsToWidthMultiplyByHeight_OnCreation(int width, int height, int cellsAmount)
     {
         BoardData data = new BoardData()

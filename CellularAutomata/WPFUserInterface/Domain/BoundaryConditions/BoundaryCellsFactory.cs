@@ -16,7 +16,7 @@ public class BoundaryCellsFactory
     /// <param name="height">The highest index which cell can have vertically.</param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static IBoundary? Create(BoundaryConditionsTypes conditionsTypes, IEnumerable<BooleanCell> cells, int width, int height)
+    public static IBoundary? Create(BoundaryConditionsTypes conditionsTypes, IEnumerable<ICell> cells, int width, int height)
     {
         switch (conditionsTypes)
         {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
+using NSubstitute;
 using WPFUserInterface.Domain;
 using WPFUserInterface.Domain.BoundaryConditions;
 using WPFUserInterface.Domain.Neighborhoods;
@@ -12,7 +13,7 @@ public class NeighborhoodsFactoryTests
     [Fact]
     public void Create_ShouldReturnMooreNeighborhood_WhenThisTypeIsChosen()
     {
-        IEnumerable<BooleanCell> cells = PrepareRectangleBoard();
+        IEnumerable<ICell> cells = PrepareRectangleBoard();
         BoundaryConditionsTypes boundaryConditions = BoundaryConditionsTypes.Constant;
         NeighborhoodType neighborhoodType = NeighborhoodType.Moore;
 
@@ -24,7 +25,7 @@ public class NeighborhoodsFactoryTests
     [Fact]
     public void Create_ShouldReturnVonNeumannNeighborhood_WhenThisTypeIsChosen()
     {
-        IEnumerable<BooleanCell> cells = PrepareRectangleBoard();
+        IEnumerable<ICell> cells = PrepareRectangleBoard();
         BoundaryConditionsTypes boundaryConditions = BoundaryConditionsTypes.Constant;
         NeighborhoodType neighborhoodType = NeighborhoodType.VonNeumann;
 
@@ -33,14 +34,16 @@ public class NeighborhoodsFactoryTests
         neighborhood.Should().BeOfType<VonNeumannNeighborhood>();
     }
 
-    private IEnumerable<BooleanCell> PrepareRectangleBoard()
+    private IEnumerable<ICell> PrepareRectangleBoard()
     {
-        var cells = new List<BooleanCell>();
+        var cells = new List<ICell>();
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                cells.Add(new BooleanCell(i, j));
+                var cellSubstitute = Substitute.For<ICell>();
+                cellSubstitute.Coordinates.Returns(new Coordinates(i, j));
+                cells.Add(cellSubstitute);
             }
         }
 

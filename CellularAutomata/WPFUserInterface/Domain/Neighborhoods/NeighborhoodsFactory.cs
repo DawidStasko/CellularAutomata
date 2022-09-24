@@ -7,7 +7,7 @@ namespace WPFUserInterface.Domain.Neighborhoods;
 
 public class NeighborhoodsFactory
 {
-    public static INeighborhood Create(IEnumerable<BooleanCell> cells, BoundaryConditionsTypes boundaryConditions,
+    public static INeighborhood Create(IEnumerable<ICell> cells, BoundaryConditionsTypes boundaryConditions,
         NeighborhoodType neighborhoodType)
     {
         switch (neighborhoodType)

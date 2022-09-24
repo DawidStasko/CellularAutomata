@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System.ComponentModel;
+using FluentAssertions;
+using NSubstitute;
 using WPFUserInterface.Domain;
 using WPFUserInterface.ViewModels;
 using Xunit;
@@ -12,21 +14,18 @@ public class CellVMTests
     [Fact]
     public void ChangeState_ShouldCallChangeStateOnSimpleCell_WhenMethodIsCalled()
     {
-        var cell = new BooleanCell();
+        var cell = Substitute.For<ICell>();
         _sut = new CellVM(cell);
-        _sut.State.Should().BeFalse();
-        cell.State.Should().BeFalse();
 
         _sut.ChangeStateCommand.Execute(null);
 
-        _sut.State.Should().BeTrue();
-        cell.State.Should().BeTrue();
+        cell.Received().ChangeState();
     }
 
     [Fact]
     public void OnPropertyChanged_ShouldBeCalled_WhenCellStateIsChanged()
     {
-        var cell = new BooleanCell();
+        var cell = Substitute.For<ICell>();
         _sut = new CellVM(cell);
         bool propertyHasChanged=false;
         _sut.PropertyChanged += (o, i) =>
@@ -36,9 +35,9 @@ public class CellVMTests
                 propertyHasChanged = true;
             }
         };
-
-        cell.State = false;
-
+        
+        cell.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(cell, new PropertyChangedEventArgs(nameof(ICell.State)));
+        
         propertyHasChanged.Should().BeTrue();
 
     }

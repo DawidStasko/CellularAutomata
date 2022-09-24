@@ -8,7 +8,7 @@ namespace WPFUserInterface.Domain.Neighborhoods;
 
 public class VonNeumannNeighborhood:NeighborhoodBase
 {
-    public VonNeumannNeighborhood(IEnumerable<BooleanCell> cells, BoundaryConditions.BoundaryConditionsTypes conditionsType)
+    public VonNeumannNeighborhood(IEnumerable<ICell> cells, BoundaryConditions.BoundaryConditionsTypes conditionsType)
     {
         var maxWidth = cells.Select(c => c.Coordinates.X).Max();
         var maxHeight = cells.Select(c => c.Coordinates.Y).Max();
