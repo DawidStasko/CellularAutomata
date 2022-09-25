@@ -59,7 +59,7 @@ public class RectangleBoardTests
         
 
         //Act
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         //Assert
         foreach (var cell in _sut.Cells)
@@ -90,7 +90,7 @@ public class RectangleBoardTests
 
 
         //Act
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeTrue();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeTrue();
@@ -116,7 +116,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(2, 1)).ChangeState();
 
         //Act
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         //Assert
         foreach (var cell in _sut.Cells)
@@ -144,7 +144,7 @@ public class RectangleBoardTests
         }
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 1)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         foreach (var cell in _sut.Cells)
         {
@@ -162,7 +162,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 1)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 1)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         foreach (var cell in _sut.Cells)
         {
@@ -183,7 +183,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(2, 1)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 2)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeTrue();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeTrue();
@@ -210,7 +210,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(2, 1)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 2)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeTrue();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeFalse();
@@ -239,7 +239,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 2)).ChangeState();
         
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeTrue();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeFalse();
@@ -268,7 +268,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 2)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 2)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeTrue();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeFalse();
@@ -298,7 +298,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 2)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(2, 2)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeTrue();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeFalse();
@@ -320,7 +320,7 @@ public class RectangleBoardTests
             cell.State.Should().BeFalse();
         }
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         foreach (var cell in _sut.Cells)
         {
@@ -337,7 +337,7 @@ public class RectangleBoardTests
         }
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 1)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         foreach (var cell in _sut.Cells)
         {
@@ -359,7 +359,7 @@ public class RectangleBoardTests
 
 
         //Act
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         //Assert
         foreach (var cell in _sut.Cells)
@@ -380,7 +380,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 2)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(2, 2)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         foreach (var cell in _sut.Cells)
         {
@@ -401,7 +401,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 2)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(2, 2)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeFalse(); 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeTrue();
@@ -428,7 +428,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 2)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(2, 2)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeFalse();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeTrue();
@@ -456,7 +456,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 2)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(2, 2)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeTrue();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeTrue();
@@ -485,7 +485,7 @@ public class RectangleBoardTests
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 2)).ChangeState();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(2, 2)).ChangeState();
 
-        _sut.CalculateNextGeneration();
+        _sut.CalculateNextGenerationAsync();
 
         _sut.Cells.First(c => c.Coordinates == new Coordinates(0, 0)).State.Should().BeTrue();
         _sut.Cells.First(c => c.Coordinates == new Coordinates(1, 0)).State.Should().BeFalse();

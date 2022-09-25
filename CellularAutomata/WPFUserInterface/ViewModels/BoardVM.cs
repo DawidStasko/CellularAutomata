@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.Reflection;
 using System.Reflection.Metadata;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Xaml.Behaviors.Core;
 using WPFUserInterface.Common;
@@ -71,19 +73,20 @@ public class BoardVM:NotificationBase
         DrawBoardCommand = new ActionCommand(DrawBoard);
     }
 
-    private void DrawBoard()
+    private async void DrawBoard()
     {
         var boardData = new BoardData() {BoundaryConditionType = BoundaryConditionsTypes.Constant, Height = BoardHeight, Width = BoardWidth, NeighborhoodType = NeighborhoodType.Moore};
-        _board = new RectangleBoard(boardData);
+        await Task.Run(() => _board = new RectangleBoard(boardData));
         foreach (var cell in _board.Cells)
         {
             Cells.Add(new CellVM(cell));
         }
-        CalculateNextGenerationCommand = new ActionCommand(CalculateNextGeneration);
+
+        CalculateNextGenerationCommand = new ActionCommand(CalculateNextGenerationAsync);
     }
 
-    private void CalculateNextGeneration()
+    private async void CalculateNextGenerationAsync()
     {
-        _board.CalculateNextGeneration();
+        await _board.CalculateNextGenerationAsync();
     }
 }
