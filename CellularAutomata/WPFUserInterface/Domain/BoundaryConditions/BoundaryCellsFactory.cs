@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Ardalis.GuardClauses;
 using WPFUserInterface.Domain.Boundaries;
 
 namespace WPFUserInterface.Domain.BoundaryConditions;
@@ -18,6 +20,10 @@ public class BoundaryCellsFactory
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public static IBoundary? Create(BoundaryConditionsTypes conditionsTypes, IEnumerable<ICell> cells, int width, int height)
     {
+        Guard.Against.Null(cells, nameof(cells));
+        Guard.Against.NegativeOrZero(width, nameof(width));
+        Guard.Against.NegativeOrZero(height, nameof(height));
+
         switch (conditionsTypes)
         {
             case BoundaryConditionsTypes.Constant:

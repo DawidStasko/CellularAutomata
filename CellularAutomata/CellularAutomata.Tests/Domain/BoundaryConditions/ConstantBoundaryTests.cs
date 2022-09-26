@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 using FluentAssertions;
 using WPFUserInterface.Domain.Boundaries;
 using Xunit;
@@ -13,10 +14,34 @@ public class ConstantBoundaryTests
     [InlineData(3,3, 16)]
     [InlineData(4, 7, 26)]
     [InlineData(17, 9, 56)]
-    public void ConstantBoundary_BoundaryCellsCollectionShouldHaveSizeOfDoubleHeightDoubleWidthPlus4_WhenCreated(int horizontalAmount, int verticalAmount, int collectionSize)
+    public void ConstantBoundary_BoundaryCellsCollectionShouldHaveSizeOfDoubleHeightDoubleWidthPlusFour_WhenCreated
+        (int horizontalAmount, int verticalAmount, int collectionSize)
     {
         _sut = new ConstantBoundary(horizontalAmount-1, verticalAmount-1, false);
 
         _sut.BoundaryCells.Should().HaveCount(collectionSize);
     }
+
+    [Theory]
+    [InlineData(0, 3)]
+    [InlineData(-3, 3)]
+    [InlineData(3, 0)]
+    [InlineData(3, -3)]
+    public void ConstantBoundary_ShouldThrowArgumentException_WhenWidthOrHeightIsEqualOrLessThanZero
+        (int width, int height)
+    {
+        var thrownException = new Exception();
+
+        try
+        {
+            _sut = new ConstantBoundary(width, height, false);
+        }
+        catch (Exception e)
+        {
+            thrownException = e;
+        }
+
+        thrownException.Should().BeOfType<ArgumentException>();
+    }
+
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Ardalis.GuardClauses;
 
 namespace WPFUserInterface.Domain.Boundaries;
 
@@ -16,6 +17,9 @@ public class ConstantBoundary:IBoundary
     /// <param name="value">The value which will be assigned to boundary cells.</param>
     public ConstantBoundary(int maxX, int maxY, bool value)
     {
+        Guard.Against.NegativeOrZero(maxX);
+        Guard.Against.NegativeOrZero(maxY);
+
         var cells = new List<ICell>();
         for (int i = 0; i <= maxX; i++)
         {
@@ -35,7 +39,7 @@ public class ConstantBoundary:IBoundary
 
         cells.Add(new BooleanCell(-1, -1) { State = value });
         cells.Add(new BooleanCell(maxX + 1, -1) { State = value });
-        cells.Add(new BooleanCell(-1, maxY+1) { State = value });
+        cells.Add(new BooleanCell(-1, maxY + 1) { State = value });
         cells.Add(new BooleanCell(maxX + 1, maxY + 1) { State = value });
 
         BoundaryCells = cells;
