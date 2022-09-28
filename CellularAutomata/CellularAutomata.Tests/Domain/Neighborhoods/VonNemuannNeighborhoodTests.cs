@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using WPFUserInterface.Domain.BoundaryConditions;
@@ -21,11 +22,11 @@ public class VonNeumannNeighborhoodTests
     [InlineData(7, 3)]
     public void VonNeumannNeighborhood_ShouldHaveFourNeighborsFromBoard_WhenNotOnBoundary(int x, int y)
     {
-        var board = PrepareRectangleBoard();
-        var cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
+        IEnumerable<ICell> board = PrepareRectangleBoard();
+        ICell cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
         _sut = new VonNeumannNeighborhood(board, BoundaryConditionsTypes.Constant);
 
-        var neighbors = _sut.GetNeighbors(cellToTest).ToList();
+        IEnumerable<ICell> neighbors = _sut.GetNeighbors(cellToTest).ToList();
 
         neighbors.Should().HaveCount(4);
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 0, y - 1));
@@ -33,7 +34,7 @@ public class VonNeumannNeighborhoodTests
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 1, y + 0));
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 0, y + 1));
 
-        foreach (var processedNeighbor in neighbors)
+        foreach (ICell processedNeighbor in neighbors)
         {
             board.Should().Contain(processedNeighbor);
         }
@@ -46,11 +47,11 @@ public class VonNeumannNeighborhoodTests
     [InlineData(9, 3)]
     public void VonNeumannNeighborhood_ShouldHaveThreeNeighborsFromBoardOneFromBoundary_WhenOnBoundaryButNotInCorner(int x, int y)
     {
-        var board = PrepareRectangleBoard();
-        var cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
+        IEnumerable<ICell> board = PrepareRectangleBoard();
+        ICell cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
         _sut = new VonNeumannNeighborhood(board, BoundaryConditionsTypes.Constant);
 
-        var neighbors = _sut.GetNeighbors(cellToTest).ToList();
+        IList<ICell> neighbors = _sut.GetNeighbors(cellToTest).ToList();
 
         neighbors.Should().HaveCount(4);
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 0, y - 1));
@@ -67,11 +68,11 @@ public class VonNeumannNeighborhoodTests
     [InlineData(9, 9)]
     public void VonNeumannNeighborhood_ShouldHaveTwoNeighborsFromBoardTwoFromBoundary_WhenOnCorner(int x, int y)
     {
-        var board = PrepareRectangleBoard();
-        var cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
+        IEnumerable<ICell> board = PrepareRectangleBoard();
+        ICell cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
         _sut = new VonNeumannNeighborhood(board, BoundaryConditionsTypes.Constant);
 
-        var neighbors = _sut.GetNeighbors(cellToTest).ToList();
+        IList<ICell> neighbors = _sut.GetNeighbors(cellToTest).ToList();
 
         neighbors.Should().HaveCount(4);
         neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 0, y - 1));
@@ -82,25 +83,44 @@ public class VonNeumannNeighborhoodTests
 
     }
 
-    public void MooreNeighborhood_ShouldReturnNull_WhenCellIsNotOnBoard()
+    [Fact]
+    public void GetNeighbors_ShouldReturnNull_WhenCellIsNotOnBoard()
     {
-        var board = PrepareRectangleBoard();
-        var cellOutsideOfBoard = new BooleanCell(30, 30);
+        IEnumerable<ICell> board = PrepareRectangleBoard();
+        ICell cellOutsideOfBoard = new BooleanCell(30, 30);
         _sut = new VonNeumannNeighborhood(board, BoundaryConditionsTypes.Constant);
 
-        var neighbors = _sut.GetNeighbors(cellOutsideOfBoard);
+        IEnumerable<ICell>? neighbors = _sut.GetNeighbors(cellOutsideOfBoard);
 
         neighbors.Should().BeNull();
     }
 
+    [Fact]
+    public void VonNeumannNeighborhood_ShouldThrowNullArgumentException_WhenCellsCollectionIsNull()
+    {
+        IEnumerable<ICell> board = null;
+        Exception thrownException = null;
+
+        try
+        {
+            _sut = new VonNeumannNeighborhood(board, BoundaryConditionsTypes.Constant);
+        }
+        catch (Exception e)
+        {
+            thrownException = e;
+        }
+
+        thrownException.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+    }
+
     private IEnumerable<ICell> PrepareRectangleBoard()
     {
-        var cells = new List<ICell>();
+        List<ICell> cells = new List<ICell>();
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                var cellSubstitute = Substitute.For<ICell>();
+                ICell? cellSubstitute = Substitute.For<ICell>();
                 cellSubstitute.Coordinates.Returns(new Coordinates(i, j));
                 cells.Add(cellSubstitute);
             }

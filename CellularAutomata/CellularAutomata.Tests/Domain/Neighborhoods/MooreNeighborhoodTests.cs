@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
@@ -13,6 +14,24 @@ namespace CellularAutomata.Tests.Domain.Neighborhoods;
 public class MooreNeighborhoodTests
 {
     private MooreNeighborhood _sut;
+
+    [Fact]
+    public void MooreNeighborhood_ShouldThrowArgumentNullException_WhenCellsCollectionIsNull()
+    {
+        IEnumerable<ICell> cells = null;
+        Exception? thrownException = null;
+
+        try
+        {
+            _sut = new MooreNeighborhood(cells, BoundaryConditionsTypes.Constant);
+        }
+        catch (Exception e)
+        {
+            thrownException = e;
+        }
+
+        thrownException.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+    }
 
     [Theory]
     [InlineData(3, 1)]
@@ -95,7 +114,7 @@ public class MooreNeighborhoodTests
     }
 
     [Fact]
-    public void MooreNeighborhood_ShouldReturnNull_WhenCellIsNotOnBoard()
+    public void GetNeighbors_ShouldReturnNull_WhenCellIsNotOnBoard()
     {
         var board = PrepareRectangleBoard();
         var cellOutsideOfBoard = new BooleanCell(30, 30);

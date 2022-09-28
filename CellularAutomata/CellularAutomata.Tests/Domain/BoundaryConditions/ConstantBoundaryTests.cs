@@ -30,7 +30,7 @@ public class ConstantBoundaryTests
     public void ConstantBoundary_ShouldThrowArgumentException_WhenWidthOrHeightIsEqualOrLessThanZero
         (int width, int height)
     {
-        var thrownException = new Exception();
+        Exception thrownException = null;
 
         try
         {
@@ -41,7 +41,7 @@ public class ConstantBoundaryTests
             thrownException = e;
         }
 
-        thrownException.Should().BeOfType<ArgumentException>();
+        thrownException.Should().NotBeNull().And.BeOfType<ArgumentException>();
     }
 
 }

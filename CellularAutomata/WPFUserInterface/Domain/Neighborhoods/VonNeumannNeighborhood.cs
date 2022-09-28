@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Ardalis.GuardClauses;
 using WPFUserInterface.Common;
 using WPFUserInterface.Domain.Boundaries;
 using WPFUserInterface.Domain.BoundaryConditions;
@@ -10,6 +11,8 @@ public class VonNeumannNeighborhood:NeighborhoodBase
 {
     public VonNeumannNeighborhood(IEnumerable<ICell> cells, BoundaryConditions.BoundaryConditionsTypes conditionsType)
     {
+        Guard.Against.Null(cells, nameof(cells));
+
         var maxWidth = cells.Select(c => c.Coordinates.X).Max();
         var maxHeight = cells.Select(c => c.Coordinates.Y).Max();
 

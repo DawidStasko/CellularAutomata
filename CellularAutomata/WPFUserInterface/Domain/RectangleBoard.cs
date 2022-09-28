@@ -65,4 +65,11 @@ public class RectangleBoard
         }
         return Task.CompletedTask;
     }
+
+    public static Task<RectangleBoard> CreateAsync(BoardData data)
+    {
+        var newItem = new RectangleBoard(data);
+        return Task.FromResult(newItem);
+    }
 }
+

@@ -70,13 +70,14 @@ public class BoardVM:NotificationBase
     {
         BoardHeight = 3; 
         BoardWidth = 3;
-        DrawBoardCommand = new ActionCommand(DrawBoard);
+        DrawBoardCommand = new ActionCommand(DrawBoardAsync);
     }
 
-    private async void DrawBoard()
+    private async void DrawBoardAsync()
     {
         var boardData = new BoardData() {BoundaryConditionType = BoundaryConditionsTypes.Constant, Height = BoardHeight, Width = BoardWidth, NeighborhoodType = NeighborhoodType.Moore};
-        await Task.Run(() => _board = new RectangleBoard(boardData));
+        _board = await RectangleBoard.CreateAsync(boardData);
+        
         foreach (var cell in _board.Cells)
         {
             Cells.Add(new CellVM(cell));

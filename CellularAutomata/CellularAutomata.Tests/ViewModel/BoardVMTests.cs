@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using FluentAssertions;
 using System.Windows.Media.Media3D;
 using WPFUserInterface.ViewModels;
@@ -15,7 +16,7 @@ public class BoardVMTests
     [InlineData(3,3,9)]
     [InlineData(2, 4, 8)]
     [InlineData(5, 3, 15)]
-    public void DrawBoardCommand_ShouldDrawRectangleBoard_WhenItIsCalled(int width, int height, int cellsAmount)
+    public async Task DrawBoardCommand_ShouldDrawRectangleBoard_WhenItIsCalled(int width, int height, int cellsAmount)
     {
         _sut = new BoardVM();
         _sut.BoardHeight = height;

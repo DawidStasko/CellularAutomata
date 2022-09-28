@@ -20,8 +20,7 @@ public class BoundaryCellsFactoryTests
             BoundaryCellsFactory.Create(BoundaryConditionsTypes.Constant, 
                 Enumerable.Empty<ICell>(), 10, 10);
 
-        _sut.Should().NotBeNull();
-        _sut.Should().BeOfType<ConstantBoundary>();
+        _sut.Should().NotBeNull().And.BeOfType<ConstantBoundary>();
     }
 
     [Fact]
@@ -31,7 +30,7 @@ public class BoundaryCellsFactoryTests
         IEnumerable<ICell> cells = null;
         int width = 5;
         int height = 5;
-        Exception thrownException = new Exception();
+        Exception thrownException = null;
 
         try
         {
@@ -42,8 +41,7 @@ public class BoundaryCellsFactoryTests
             thrownException = e;
         }
 
-        thrownException.Should().NotBeNull();
-        thrownException.Should().BeOfType<ArgumentNullException>();
+        thrownException.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
     }
 
     [Theory]
@@ -55,7 +53,7 @@ public class BoundaryCellsFactoryTests
     {
         BoundaryConditionsTypes conditions = BoundaryConditionsTypes.Constant;
         IEnumerable<ICell> cells = Enumerable.Empty<ICell>();
-        Exception thrownException = new Exception();
+        Exception thrownException = null;
 
         try
         {
@@ -66,9 +64,7 @@ public class BoundaryCellsFactoryTests
             thrownException = e;
         }
 
-        thrownException.Should().NotBeNull();
-        thrownException.Should().BeOfType<ArgumentException>();
-
+        thrownException.Should().NotBeNull().And.BeOfType<ArgumentException>();
     }
 
 }
