@@ -16,7 +16,7 @@ public class VonNeumannNeighborhoodTests
     private VonNeumannNeighborhood _sut;
 
     [Fact]
-    public void MooreNeighborhood_ShouldThrowArgumentException_WhenCellsCollectionIsEmpty()
+    public void VonNeumannNeighborhood_ShouldThrowArgumentException_WhenCellsCollectionIsEmpty()
     {
         IEnumerable<ICell> cells = new List<ICell>();
         Exception? thrownException = null;
