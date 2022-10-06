@@ -77,7 +77,7 @@ public class BoardVM:NotificationBase
     {
         var boardData = new BoardData() {BoundaryConditionType = BoundaryConditionsTypes.Constant, Height = BoardHeight, Width = BoardWidth, NeighborhoodType = NeighborhoodType.Moore};
         _board = await RectangleBoard.CreateAsync(boardData);
-        
+        Cells.Clear();
         foreach (var cell in _board.Cells)
         {
             Cells.Add(new CellVM(cell));
