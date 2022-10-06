@@ -16,6 +16,24 @@ public class MooreNeighborhoodTests
     private MooreNeighborhood _sut;
 
     [Fact]
+    public void MooreNeighborhood_ShouldThrowArgumentException_WhenCellsCollectionIsEmpty()
+    {
+        IEnumerable<ICell> cells = new List<ICell>();
+        Exception? thrownException = null;
+
+        try
+        {
+            _sut = new MooreNeighborhood(cells, BoundaryConditionsTypes.Constant);
+        }
+        catch (Exception e)
+        {
+            thrownException = e;
+        }
+
+        thrownException.Should().NotBeNull().And.BeOfType<ArgumentException>();
+    }
+
+    [Fact]
     public void MooreNeighborhood_ShouldThrowArgumentNullException_WhenCellsCollectionIsNull()
     {
         IEnumerable<ICell> cells = null;
