@@ -15,41 +15,7 @@ public class MooreNeighborhoodTests
 {
     private MooreNeighborhood _sut;
 
-    [Fact]
-    public void MooreNeighborhood_ShouldThrowArgumentException_WhenCellsCollectionIsEmpty()
-    {
-        IEnumerable<ICell> cells = new List<ICell>();
-        Exception? thrownException = null;
-
-        try
-        {
-            _sut = new MooreNeighborhood(cells, BoundaryConditionsTypes.Constant);
-        }
-        catch (Exception e)
-        {
-            thrownException = e;
-        }
-
-        thrownException.Should().NotBeNull().And.BeOfType<ArgumentException>();
-    }
-
-    [Fact]
-    public void MooreNeighborhood_ShouldThrowArgumentNullException_WhenCellsCollectionIsNull()
-    {
-        IEnumerable<ICell> cells = null;
-        Exception? thrownException = null;
-
-        try
-        {
-            _sut = new MooreNeighborhood(cells, BoundaryConditionsTypes.Constant);
-        }
-        catch (Exception e)
-        {
-            thrownException = e;
-        }
-
-        thrownException.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
-    }
+    #region ValidCases
 
     [Theory]
     [InlineData(3, 1)]
@@ -85,7 +51,7 @@ public class MooreNeighborhoodTests
     [InlineData(0, 3)]
     [InlineData(3, 9)]
     [InlineData(9, 3)]
-     public void MooreNeighborhood_ShouldHaveFiveNeighborsFromBoardThreeFromBoundary_WhenOnBoundaryButNotInCorner(int x, int y)
+    public void MooreNeighborhood_ShouldHaveFiveNeighborsFromBoardThreeFromBoundary_WhenOnBoundaryButNotInCorner(int x, int y)
     {
         var board = PrepareRectangleBoard();
         var cellToTest = board.Single(c => c.Coordinates == new Coordinates(x, y));
@@ -131,6 +97,10 @@ public class MooreNeighborhoodTests
 
     }
 
+    #endregion
+
+    #region InvalidCases
+
     [Fact]
     public void GetNeighbors_ShouldReturnNull_WhenCellIsNotOnBoard()
     {
@@ -143,6 +113,43 @@ public class MooreNeighborhoodTests
         neighbors.Should().BeNull();
     }
 
+    [Fact]
+    public void MooreNeighborhood_ShouldThrowArgumentException_WhenCellsCollectionIsEmpty()
+    {
+        IEnumerable<ICell> cells = new List<ICell>();
+        Exception? thrownException = null;
+
+        try
+        {
+            _sut = new MooreNeighborhood(cells, BoundaryConditionsTypes.Constant);
+        }
+        catch (Exception e)
+        {
+            thrownException = e;
+        }
+
+        thrownException.Should().NotBeNull().And.BeOfType<ArgumentException>();
+    }
+
+    [Fact]
+    public void MooreNeighborhood_ShouldThrowArgumentNullException_WhenCellsCollectionIsNull()
+    {
+        IEnumerable<ICell> cells = null;
+        Exception? thrownException = null;
+
+        try
+        {
+            _sut = new MooreNeighborhood(cells, BoundaryConditionsTypes.Constant);
+        }
+        catch (Exception e)
+        {
+            thrownException = e;
+        }
+
+        thrownException.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
+    }
+
+    #endregion
 
     private IEnumerable<ICell> PrepareRectangleBoard()
     {

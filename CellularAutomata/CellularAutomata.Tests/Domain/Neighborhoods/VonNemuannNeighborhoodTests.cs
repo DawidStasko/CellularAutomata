@@ -15,23 +15,7 @@ public class VonNeumannNeighborhoodTests
 {
     private VonNeumannNeighborhood _sut;
 
-    [Fact]
-    public void VonNeumannNeighborhood_ShouldThrowArgumentException_WhenCellsCollectionIsEmpty()
-    {
-        IEnumerable<ICell> cells = new List<ICell>();
-        Exception? thrownException = null;
-
-        try
-        {
-            _sut = new VonNeumannNeighborhood(cells, BoundaryConditionsTypes.Constant);
-        }
-        catch (Exception e)
-        {
-            thrownException = e;
-        }
-
-        thrownException.Should().NotBeNull().And.BeOfType<ArgumentException>();
-    }
+    #region ValidCases
 
     [Theory]
     [InlineData(3, 1)]
@@ -46,11 +30,11 @@ public class VonNeumannNeighborhoodTests
 
         IEnumerable<ICell> neighbors = _sut.GetNeighbors(cellToTest).ToList();
 
-        neighbors.Should().HaveCount(4);
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 0, y - 1));
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 1, y + 0));
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 1, y + 0));
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 0, y + 1));
+        neighbors.Should().HaveCount(4)
+            .And.Contain(c => c.Coordinates == new Coordinates(x + 0, y - 1))
+            .And.Contain(c => c.Coordinates == new Coordinates(x - 1, y + 0))
+            .And.Contain(c => c.Coordinates == new Coordinates(x + 1, y + 0))
+            .And.Contain(c => c.Coordinates == new Coordinates(x - 0, y + 1));
 
         foreach (ICell processedNeighbor in neighbors)
         {
@@ -71,11 +55,11 @@ public class VonNeumannNeighborhoodTests
 
         IList<ICell> neighbors = _sut.GetNeighbors(cellToTest).ToList();
 
-        neighbors.Should().HaveCount(4);
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 0, y - 1));
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 1, y + 0));
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 1, y + 0));
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 0, y + 1));
+        neighbors.Should().HaveCount(4)
+            .And.Contain(c => c.Coordinates == new Coordinates(x + 0, y - 1))
+            .And.Contain(c => c.Coordinates == new Coordinates(x - 1, y + 0))
+            .And.Contain(c => c.Coordinates == new Coordinates(x + 1, y + 0))
+            .And.Contain(c => c.Coordinates == new Coordinates(x - 0, y + 1));
         neighbors.Count(c => board.Contains(c)).Should().Be(3);
     }
 
@@ -92,14 +76,18 @@ public class VonNeumannNeighborhoodTests
 
         IList<ICell> neighbors = _sut.GetNeighbors(cellToTest).ToList();
 
-        neighbors.Should().HaveCount(4);
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 0, y - 1));
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 1, y + 0));
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x + 1, y + 0));
-        neighbors.Should().Contain(c => c.Coordinates == new Coordinates(x - 0, y + 1));
+        neighbors.Should().HaveCount(4)
+            .And.Contain(c => c.Coordinates == new Coordinates(x + 0, y - 1))
+            .And.Contain(c => c.Coordinates == new Coordinates(x - 1, y + 0))
+            .And.Contain(c => c.Coordinates == new Coordinates(x + 1, y + 0))
+            .And.Contain(c => c.Coordinates == new Coordinates(x - 0, y + 1));
         neighbors.Count(c => board.Contains(c)).Should().Be(2);
 
     }
+
+    #endregion
+
+    #region InvalidCases
 
     [Fact]
     public void GetNeighbors_ShouldReturnNull_WhenCellIsNotOnBoard()
@@ -130,6 +118,28 @@ public class VonNeumannNeighborhoodTests
 
         thrownException.Should().NotBeNull().And.BeOfType<ArgumentNullException>();
     }
+
+    [Fact]
+    public void VonNeumannNeighborhood_ShouldThrowArgumentException_WhenCellsCollectionIsEmpty()
+    {
+        IEnumerable<ICell> cells = new List<ICell>();
+        Exception? thrownException = null;
+
+        try
+        {
+            _sut = new VonNeumannNeighborhood(cells, BoundaryConditionsTypes.Constant);
+        }
+        catch (Exception e)
+        {
+            thrownException = e;
+        }
+
+        thrownException.Should().NotBeNull()
+            .And.BeOfType<ArgumentException>();
+    }
+
+    #endregion
+
 
     private IEnumerable<ICell> PrepareRectangleBoard()
     {
