@@ -38,7 +38,7 @@
                     <TextBox Grid.Column="1" Text="{Binding BoardHeight}" />
                 </Grid>
                 <Button Grid.ColumnSpan="2"  Command="{Binding BoardVM.DrawBoardCommand}">Draw Board</Button>
-                <Button Grid.ColumnSpan="2"  Command="{Binding BoardVM.CalculateNextGenerationCommand}">Next Generation</Button>
+                <views:SimulationPane/>
             </StackPanel>
         </Border>
     </Grid>
